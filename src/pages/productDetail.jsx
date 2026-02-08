@@ -48,7 +48,7 @@ export const ProductDetail = () => {
       </div>
 
       {/* Product Info Section */}
-      <div className="bg-white rounded-lg shadow-sm">
+      <div className="bg-slate-100 rounded-lg shadow-sm">
         {/* Tab Content */}
         <div className="p-6">
           {activeTab === 'detail' && <BusDetail productData={productData} />}

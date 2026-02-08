@@ -27,8 +27,9 @@ export const Layout = () => {
       </header>
 
       {/* Mainframe */}
-      <main className="flex-1 bg-slate-100 p-6">
-        <Outlet />
+      <main className="flex-1 bg-slate-100 pt-6">
+
+      <Outlet />
       </main>
     </div>
   );

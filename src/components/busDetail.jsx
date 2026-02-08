@@ -1,10 +1,21 @@
 import { BusSeatMap } from "./BusSeatMap.jsx";
 import { MapPin, Clock, X } from "lucide-react";
 import { useState } from "react";
+import {useNavigate} from "react-router-dom";
 
 export const BusDetail = ({ productData }) => {
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSeat, setSelectedSeat] = useState(null);
+
+  const handleContinue = () => {
+    navigate(`/booking/${productData.id}`, {
+      state: {
+        seat: selectedSeat,
+        product: productData,
+      },
+    });
+  };
 
   return (
     <>
@@ -203,10 +214,7 @@ export const BusDetail = ({ productData }) => {
                   : "bg-gray-300 cursor-not-allowed"
                 }
           `}
-                onClick={() => {
-                  console.log("Seat selected:", selectedSeat);
-                  setIsModalOpen(false);
-                }}
+                onClick={handleContinue}
               >
                 Lanjut
               </button>
