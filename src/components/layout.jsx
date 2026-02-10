@@ -1,7 +1,13 @@
-import { Outlet } from "react-router-dom";
+import {Outlet, useNavigate} from "react-router-dom";
 import React from "react";
+import { Ticket, User } from "lucide-react";
 
 export const Layout = () => {
+  const navigate = useNavigate();
+
+  const handleCheckTicket = () => {
+    navigate("/ticket/install");
+  }
   return (
     <div className="min-h-screen flex flex-col">
       {/* Topbar */}
@@ -14,13 +20,14 @@ export const Layout = () => {
             </div>
           </div>
           <div className="flex items-center space-x-4">
-            <button className="p-2 hover:bg-gray-100 rounded">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
+            <button
+              className="p-2 hover:bg-gray-100 rounded"
+              onClick={handleCheckTicket}
+            >
+              <Ticket className="w-5 h-5" />
             </button>
             <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-              <span className="text-xs font-semibold">MF</span>
+              <User className="w-5 h-5" />
             </div>
           </div>
         </div>

@@ -3,7 +3,11 @@ export const productData = {
   name: 'Sewa Hiace Commuter Jakarta',
   category: 'Transportation',
   type: 'Hiace',
-  image: 'https://images.unsplash.com/photo-1527786356703-4b100091cd2c?w=800&auto=format&fit=crop',
+  images: [
+    "https://images.unsplash.com/photo-1527786356703-4b100091cd2c?w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1509749837427-ac94a2553d0e?w=800&auto=format&fit=crop",
+  ],
   capacity: '50 Kursi',
   features: ['AC', 'Audio System', 'Comfortable Seats', 'Reclining Seats', 'Toilet'],
   price: 1200000,
@@ -12,15 +16,18 @@ export const productData = {
   location: 'Jakarta',
   rating: 4.8,
   reviews: 127,
+  seatClass: 'Economy',
 
   // Informasi Rute Perjalanan
   departureTime: '22:00',
   departureDate: '04 Feb',
   departureLocation: 'Jl. Tamansari No.21 A, Tamansari, Kec. Bandung Wetan, Kota Bandung, Jawa Barat 40116',
+  departureCode: 'BDO',
 
   arrivalTime: '00:00',
   arrivalDate: '05 Feb',
   arrivalLocation: 'Jalan Alpola KS, Tubun, RT.10 / RW. 06, Petamburan, RT.10/RW.6, Petamburan, Kecamatan Tanah Abang, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10260',
+  arrivalCode: 'JKT',
 
   travelDuration: '2j',
 

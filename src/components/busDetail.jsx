@@ -1,4 +1,4 @@
-import { BusSeatMap } from "./BusSeatMap.jsx";
+import { BusSeatMap } from "./busSeatMap.jsx";
 import { MapPin, Clock, X } from "lucide-react";
 import { useState } from "react";
 import {useNavigate} from "react-router-dom";
