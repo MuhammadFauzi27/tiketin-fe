@@ -133,24 +133,6 @@ export const PassengerDetail = ({
               Sesuai KTP/Paspor (tanpa tanda baca dan gelar)
             </p>
           </div>
-
-          {/* Birth Date Calendar */}
-          <div className="mb-5">
-            <label className="block text-[13px] text-gray-600 mb-2 font-medium">
-              Tanggal Lahir
-            </label>
-            <input
-              type="date"
-              name="birthDate"
-              value={formData.birthDate}
-              onChange={handleInputChange}
-              max={new Date().toISOString().split('T')[0]}
-              className="w-full px-4 py-3 border border-gray-200 rounded-lg text-[15px] bg-gray-50 focus:outline-none focus:border-[#DC2626] focus:bg-white focus:ring-4 focus:ring-[#DC2626]/10 transition-all"
-              style={{
-                colorScheme: 'light'
-              }}
-            />
-          </div>
         </>
       )}
 

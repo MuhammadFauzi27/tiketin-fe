@@ -73,8 +73,8 @@ export const BusDetail = ({ productData }) => {
                 {/* Departure */}
                 <div className="flex gap-4">
                   <div className="flex flex-col items-center">
-                    <div className="w-3 h-3 rounded-full bg-red-600 border-2 border-red-700"></div>
-                    <div className="w-0.5 h-full bg-gray-300 min-h-[60px]"></div>
+                    <div className="w-3 h-3 rounded-full border-2 border-red-600"></div>
+                    <div className="w-0.5 h-full bg-red-600 min-h-[60px]"></div>
                   </div>
                   <div className="flex-1 pb-8">
                     <div className="flex items-baseline gap-3 mb-1">
@@ -108,7 +108,7 @@ export const BusDetail = ({ productData }) => {
                 {/* Arrival */}
                 <div className="flex gap-4">
                   <div className="flex flex-col items-center">
-                    <div className="w-3 h-3 rounded-full bg-green-600 border-2 border-green-700"></div>
+                    <div className="w-3 h-3 rounded-full bg-red-600 border-2 border-red-600"></div>
                   </div>
                   <div className="flex-1">
                     <div className="flex items-baseline gap-3 mb-1">

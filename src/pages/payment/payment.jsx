@@ -24,12 +24,15 @@ export const PaymentPage = () => {
     seat
   } = state || {};
 
+  const [finalTotal, setFinalTotal] = useState(total);
+  const [usedCoupon, setUsedCoupon] = useState(null);
+
   const departureArea = extractLocation(product?.departureLocation);
 
   const arrivalArea = extractLocation(product?.arrivalLocation);
 
 
-  const buildTicketData = () => ({
+  const buildTicketData = (finalAmount) => ({
     passenger: {
       name: form.name || "Guest",
       type: "Passenger",
@@ -46,16 +49,33 @@ export const PaymentPage = () => {
       date: product?.date,
       time: product?.arrivalTime,
     },
-    duration: product?.duration,
+    duration: product?.travelDuration,
     seat: {
       number: seat,
       class: product?.seatClass || "Economy",
     },
     bookingCode: bookingId,
     passengers: "Adult 1x",
-    total,
+    total: finalAmount,
     qrData: bookingId,
   });
+
+  const coupons = [
+    {
+      id: "DISC20",
+      title: "Diskon 20K",
+      description: "Minimal transaksi Rp150.000",
+      discount: 20000,
+      expiredAt: "31 Des 2026",
+    },
+    {
+      id: "HEMAT10",
+      title: "Hemat 10K",
+      description: "Tanpa minimum",
+      discount: 10000,
+      expiredAt: "15 Mar 2026",
+    },
+  ];
 
   useEffect(() => {
     if (timeLeft <= 0) return;
@@ -67,16 +87,17 @@ export const PaymentPage = () => {
     return () => clearInterval(timer);
   }, [timeLeft]);
 
-  const handlePayment = () => {
+  const handlePayment = ({ total, coupon }) => {
     if (!selectedMethod) return;
 
-    const ticketData = buildTicketData();
+    setFinalTotal(total);
+    setUsedCoupon(coupon);
 
+    const ticketData = buildTicketData(total);
     createTicket(ticketData);
 
     setShowSuccess(true);
   };
-
 
   const hour = "00";
   const minutes = String(Math.floor(timeLeft / 60)).padStart(2, "0");
@@ -118,6 +139,7 @@ export const PaymentPage = () => {
             total={total}
             selectedMethod={selectedMethod}
             onPayment={handlePayment}
+            coupons={coupons}
           />
         </div>
       </div>
@@ -127,7 +149,7 @@ export const PaymentPage = () => {
         <PaymentSuccessNotification
           orderId={bookingId}
           paymentMethod={selectedMethod?.name}
-          amount={total}
+          amount={finalTotal}
           onFinish={() => {
             setShowSuccess(false)
             navigate("/")

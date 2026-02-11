@@ -27,7 +27,7 @@ export const Layout = () => {
               <Ticket className="w-5 h-5" />
             </button>
             <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
-              <User className="w-5 h-5" />
+              <User  className="w-5 h-5" />
             </div>
           </div>
         </div>

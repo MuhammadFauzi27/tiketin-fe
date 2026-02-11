@@ -1,4 +1,5 @@
 import { Users } from "lucide-react";
+import { IconSteeringWheel } from "@tabler/icons-react";
 
 export const BusSeatMap = ({ seats, selectedSeat, onSelectSeat }) => {
   const handleSeatClick = (seat) => {
@@ -71,6 +72,28 @@ export const BusSeatMap = ({ seats, selectedSeat, onSelectSeat }) => {
 
       {/* Seat Layout */}
       <div className="bg-gray-50 p-6 rounded-xl border">
+        {/* Driver Section */}
+        <div className="flex justify-center gap-8 mb-6 pb-4 border-b-2 border-dashed border-gray-300">
+          <div className="flex gap-2">
+            {/* Empty space on left */}
+            <div className="w-11 h-11" />
+            <div className="w-11 h-11" />
+          </div>
+
+          <div className="w-8 flex justify-center">
+            <div className="w-1 bg-gray-300 rounded" />
+          </div>
+
+          <div className="flex gap-2">
+            {/* Driver seat on right */}
+            <div className="w-11 h-11" />
+            <div className="w-11 h-11 rounded-lg border-2 border-gray-400 bg-gray-100 flex items-center justify-center">
+              <IconSteeringWheel className="w-6 h-6 text-gray-600" stroke={2} />
+            </div>
+          </div>
+        </div>
+
+        {/* Passenger Seats */}
         <div className="space-y-3 mb-6">
           {[...Array(11)].map((_, i) => {
             const row = i + 1;

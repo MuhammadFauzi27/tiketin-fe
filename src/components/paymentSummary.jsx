@@ -1,4 +1,5 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { Coupon } from "./Coupon";
 
 const generateOrderId = () => {
   return Math.floor(100000000 + Math.random() * 900000000);
@@ -15,12 +16,9 @@ const formatDate = (dateString) => {
   const days = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
   const months = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Oct", "Nov", "Des"];
 
-  const dayName = days[date.getDay()];
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = months[date.getMonth()];
-  const year = date.getFullYear();
-
-  return `${dayName}, ${day} ${month} ${year}`;
+  return `${days[date.getDay()]}, ${String(date.getDate()).padStart(2, "0")} ${
+    months[date.getMonth()]
+  } ${date.getFullYear()}`;
 };
 
 export const PaymentSummary = ({
@@ -30,14 +28,20 @@ export const PaymentSummary = ({
                                  time = "-",
                                  total = 0,
                                  selectedMethod,
-                                 onPayment
+                                 onPayment,
+                                 coupons = [],
                                }) => {
+  const [showCoupon, setShowCoupon] = useState(false);
+  const [selectedCoupon, setSelectedCoupon] = useState(null);
+
   const generatedOrderId = useMemo(() => generateOrderId(), []);
   const displayOrderId = orderId || generatedOrderId;
 
   const displayRoute = route || "Pasteur → Kuningan (Jakarta)";
   const displayDate = formatDate(date);
-  const displayTime = time;
+
+  const discount = selectedCoupon?.discount || 0;
+  const finalTotal = Math.max(total - discount, 0);
 
   const isPaymentEnabled = selectedMethod !== null;
 
@@ -49,25 +53,40 @@ export const PaymentSummary = ({
       </div>
 
       {/* Route */}
-      <div className="bg-gray-50 rounded-lg p-3 flex items-center justify-between">
-        <div>
-          <p className="font-semibold text-gray-800">
-            {displayRoute}
-          </p>
-          <p className="text-sm text-gray-500">
-            {displayDate} • {displayTime}
-          </p>
-        </div>
+      <div className="bg-gray-50 rounded-lg p-3">
+        <p className="font-semibold text-gray-800">{displayRoute}</p>
+        <p className="text-sm text-gray-500">
+          {displayDate} • {time}
+        </p>
       </div>
 
       {/* Promo */}
-      <div className="flex items-center justify-between border rounded-lg p-3">
+      <button
+        onClick={() => setShowCoupon(!showCoupon)}
+        className="w-full flex items-center justify-between border rounded-lg p-3 hover:bg-gray-50 transition"
+      >
         <div className="flex items-center gap-2 text-[#DC2626] font-medium text-sm">
           <span className="text-lg">%</span>
-          <span>Lihat promo/voucher</span>
+          <span>
+            {selectedCoupon
+              ? `${selectedCoupon.title} (-Rp${formatCurrency(selectedCoupon.discount)})`
+              : "Lihat promo/voucher"}
+          </span>
         </div>
-        <input type="radio" disabled className="accent-[#DC2626]" />
-      </div>
+        <input type="radio" checked={!!selectedCoupon} readOnly className="accent-[#DC2626]" />
+      </button>
+
+      {/* Coupon Panel */}
+      {showCoupon && (
+        <Coupon
+          coupons={coupons}
+          selectedCoupon={selectedCoupon}
+          onSelect={(coupon) => {
+            setSelectedCoupon(coupon);
+            setShowCoupon(false);
+          }}
+        />
+      )}
 
       {/* Point */}
       <div className="flex items-center justify-between border rounded-lg p-3">
@@ -79,20 +98,32 @@ export const PaymentSummary = ({
       </div>
 
       {/* Total */}
-      <div className="flex items-center justify-between pt-2">
-        <p className="text-sm font-medium text-gray-600">Total Pembayaran</p>
-        <div className="flex items-center gap-1 font-semibold text-gray-900">
-          Rp {formatCurrency(total)}
+      <div className="space-y-1 pt-2">
+        <div className="flex justify-between text-sm text-gray-600">
+          <span>Total</span>
+          <span>Rp {formatCurrency(total)}</span>
+        </div>
+
+        {selectedCoupon && (
+          <div className="flex justify-between text-sm text-green-600">
+            <span>Diskon</span>
+            <span>- Rp {formatCurrency(discount)}</span>
+          </div>
+        )}
+
+        <div className="flex justify-between font-semibold text-gray-900">
+          <span>Total Pembayaran</span>
+          <span>Rp {formatCurrency(finalTotal)}</span>
         </div>
       </div>
 
       {/* Button */}
       <button
-        onClick={onPayment}
+        onClick={() => onPayment({ coupon: selectedCoupon, total: finalTotal })}
         disabled={!isPaymentEnabled}
         className={`w-full py-3 rounded-lg text-sm font-semibold transition-colors ${
           isPaymentEnabled
-            ? "bg-[#DC2626] text-white hover:bg-[#B91C1C] cursor-pointer"
+            ? "bg-[#DC2626] text-white hover:bg-[#B91C1C]"
             : "bg-gray-200 text-gray-400 cursor-not-allowed"
         }`}
       >

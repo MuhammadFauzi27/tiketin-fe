@@ -83,15 +83,6 @@ export const DigitalTicket = ({
             <div className="w-full flex items-center justify-center relative">
               <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#DC2626' }}></div>
               <div className="flex-1 border-t-2 border-dashed border-red-300"></div>
-              <div className="absolute top-[-20px] left-1/2 transform -translate-x-1/2">
-                <svg
-                  className="w-6 h-6 text-red-500"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                >
-                  <path d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16h2a1 1 0 110 2H7a1 1 0 110-2h2V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.617a1 1 0 01.894-1.788l1.599.799L9 4.323V3a1 1 0 011-1z" />
-                </svg>
-              </div>
               <div className="w-2 h-2 rounded-full" style={{ backgroundColor: '#DC2626' }}></div>
             </div>
             <p className="text-gray-500 text-xs mt-3">
