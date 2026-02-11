@@ -85,6 +85,13 @@ export const PaymentSummary = ({
             setSelectedCoupon(coupon);
             setShowCoupon(false);
           }}
+          onApplyVoucher={(code) => {
+            if (code === 'HEMAT50') {
+              setSelectedCoupon({
+                discont: 50000
+              })
+            }
+          }}
         />
       )}
 
